@@ -1,0 +1,922 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NetManager</name>
+    </assembly>
+    <members>
+        <member name="T:NetManager.Client.ClientControl">
+            <summary>
+            Элемент управления c клиентом с возможностью выбора клиентов, которым нужно отправлять данные
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.ClientControl.#ctor(NetManager.Client.NMClient)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="client">Управляемый клиент</param>
+        </member>
+        <member name="M:NetManager.Client.ClientControl.#ctor">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.ClientControl.CheckedClients">
+            <summary>
+            Возвращает список данных о выбранных клиентах
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.ClientControl.CheckedClientAddresses">
+            <summary>
+            Возвращает массив Id выбранных клиентов
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ClientControl.NewClient">
+            <summary>
+            Событие, вызываемое когда добавляется новый клиент к серверу
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ClientControl.DeleteClient">
+            <summary>
+            Событие, вызываемое когда удаляется клиент из сервера
+            </summary>
+        </member>
+        <member name="F:NetManager.Client.ClientControl.components">
+            <summary>
+            Обязательная переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.ClientControl.Dispose(System.Boolean)">
+            <summary>
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:NetManager.Client.ClientControl.InitializeComponent">
+            <summary>
+            Требуемый метод для поддержки конструктора — не изменяйте 
+            содержимое этого метода с помощью редактора кода.
+            </summary>
+        </member>
+        <member name="T:NetManager.Client.Design.IPAddressConverter">
+            <summary>
+            Конвертер для свойства типа IPAddress
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.Design.IPAddressConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="sourceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NetManager.Client.Design.IPAddressConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NetManager.Client.Design.IPAddressConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NetManager.Client.Design.IPAddressConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="value"></param>
+            <param name="destinationType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NetManager.Client.NMClient">
+            <summary>
+            Класс для подключения к серверу и передачи параметров
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.NMClient.Owner">
+            <summary>
+            Владелец клиента. Для синхронизации потоков при вызове событий.
+            Если синхронизация не требуется, то задать null
+            </summary>
+        </member>
+        <member name="F:NetManager.Client.NMClient.m_Port">
+            <summary>
+            Здесь хранится номер порта
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.NMClient.Port">
+            <summary>
+            Номер порта сервера, к которому идет подключение
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.NMClient.PortChanged">
+            <summary>
+            Событие, возникающее когда изменен номер порта
+            </summary>
+        </member>
+        <member name="F:NetManager.Client.NMClient.m_IPServer">
+            <summary>
+            Здесь хранится IP адрес сервера
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.NMClient.IPServerChanged">
+            <summary>
+            Событие, возникающее когда IP сервера будет изменен
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.NMClient.IPServer">
+            <summary>
+            IP адрес сервера
+            </summary>
+        </member>
+        <member name="F:NetManager.Client.NMClient.m_Name">
+            <summary>
+            Здесь хранится имя клиента
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.NMClient.Name">
+            <summary>
+            Название клиента, которое увидят все другие клиенты
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.NMClient.NameChanged">
+            <summary>
+            Событие, возникающее когда название клиента изменено
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.NMClient.IsRunning">
+            <summary>
+            Сообщает о том, подключен ли клиент к серверу
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.NMClient.Error">
+            <summary>
+            Событие, возникающее при ошибках
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.ErrorEvent(System.String)">
+            <summary>
+            Обработка ошибки - процедура синхронизируется с потоком, если Owner задан и вызывается событие
+            </summary>
+            <param name="msg">Сообщение об ошибке</param>
+        </member>
+        <member name="E:NetManager.Client.NMClient.NewClient">
+            <summary>
+            Событие возникающее когда к серверу добавляется новый клиент
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.NewClientEvent(System.Int32,System.String)">
+            <summary>
+            Обработка добавления нового клиента - процедура синхронизируется с потоком Control и вызывается событие
+            </summary>
+            <param name="id">Адрес клиента</param>
+            <param name="name">Имя клиента</param>
+        </member>
+        <member name="E:NetManager.Client.NMClient.DeleteClient">
+            <summary>
+            Событие, возникающее когда от сервера отключается клиент
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.DeleteClientEvent(System.Int32,System.String)">
+            <summary>
+            Обработка удаления нового клиента - процедура синхронизируется с потоком Control и вызывается событие
+            </summary>
+            <param name="id">Адрес клиента</param>
+            <param name="name">Имя клиента</param>
+        </member>
+        <member name="M:NetManager.Client.NMClient.CloseConnect(System.Net.Sockets.TcpClient)">
+            <summary>
+            Закрывается соединение с сервером
+            </summary>
+            <param name="client">Tcp клиент, по которому было осуществлено подключение</param>
+        </member>
+        <member name="E:NetManager.Client.NMClient.Stopped">
+            <summary>
+            Событие возникающее когда клиент останавливается
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.StopEvent">
+            <summary>
+            Обработка отключения клиента - процедура синхронизируется с потоком Control и вызывается событие
+            </summary>
+        </member>
+        <member name="F:NetManager.Client.NMClient.m_ClientAddresses">
+            <summary>
+            Здесь хранится список подключенных клиентов
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.NMClient.ClientAddresses">
+            <summary>
+            Список клиентов, подключенных к серверу
+            </summary>
+        </member>
+        <member name="F:NetManager.Client.NMClient.m_Client">
+            <summary>
+            Инструмент подключения к серверу по протоколу Tcp
+            </summary>
+        </member>
+        <member name="F:NetManager.Client.NMClient.m_SReseive">
+            <summary>
+            Семафор для синхронизации получения данных
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.NMClient.Reseive">
+            <summary>
+            Событие, возникающее когда от сервера пришли данные
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.ReseiveEvent(System.Int32,System.Byte[])">
+            <summary>
+            Обработка получения данных - процедура синхронизируется с потоком Control и вызывается событие
+            </summary>
+            <param name="id">Адрес источника</param>
+            <param name="msg">Массив байт данных полученных от источника</param>
+        </member>
+        <member name="M:NetManager.Client.NMClient.Read(System.Net.Sockets.NetworkStream,System.Int32)">
+            <summary>
+            Считывает данные по сети
+            </summary>
+            <param name="ns">Соединение по сети</param>
+            <param name="size">Размер считываемых данных</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetManager.Client.NMClient.RunClient">
+            <summary>
+            Работа клиента (получение данных и команд от сервера)
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.SendData(System.Int32,System.Byte[])">
+            <summary>
+            Отправляет данные через сервер клиенту по указанному адресу
+            <param name="address">Адрес назначения</param>
+            <param name="data">Массив байт данных</param>
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.SendData(System.Int32[],System.Byte[])">
+            <summary>
+            Отправляет данные через сервер клиентам по указанному адресу
+            </summary>
+            <param name="addresses">Массив адресов назначения</param>
+            <param name="data">Массив байт данных</param>
+        </member>
+        <member name="E:NetManager.Client.NMClient.Started">
+            <summary>
+            Событие возникающее когда процесс был запущен
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.StartClient">
+            <summary>
+            Подключение клиента к серверу
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.StopClient">
+            <summary>
+            Отключение клиента от сервера
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.SendRestartServer">
+            <summary>
+            Заставляет сервер перезапуститься
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.NMClient.#ctor(System.Windows.Forms.Control)">
+            <summary>
+            Конструктор 
+            </summary>
+            <param name="owner">Окно, внутри которого осуществляется управление клиентом.
+            Используется для того, чтобы синхронизировать асинхронные процессы с процессом окна.
+            Если синхронизация не требуется, его можно задать null</param>
+        </member>
+        <member name="M:NetManager.Client.NMClient.#ctor(System.Net.IPAddress,System.Int32,System.Windows.Forms.Control)">
+            <summary>
+            Конструктор 
+            </summary>
+            <param name="serverIP">IP адрес сервера</param>
+            <param name="port">Номер порта сервера</param>
+            <param name="control">Окно, внутри которого осуществляется управление клиентом.
+            Используется для того, чтобы синхронизировать асинхронные процессы с процессом окна.
+            Если синхронизация не требуется, его можно задать null</param>
+        </member>
+        <member name="M:NetManager.Client.NMClient.SaveState(System.Xml.XmlElement)">
+            <summary>
+            Сохраняются настройки компонента
+            </summary>
+            <param name="node">Узел с настройками</param>
+        </member>
+        <member name="M:NetManager.Client.NMClient.LoadState(System.Xml.XmlElement)">
+            <summary>
+            Загружаются настройки компонента
+            </summary>
+            <param name="node">Узел с настройками</param>
+        </member>
+        <member name="M:NetManager.Client.NMClient.Finalize">
+            <summary>
+            деструктор, в котором останавливается клиент, если он не был остановлен
+            </summary>
+        </member>
+        <member name="T:NetManager.Client.ReseiveClientControl">
+            <summary>
+            Элемент управления с клиентом для задач, в которых не требуется отправка данных
+            По умолчанию клиент работает в асинхронном режиме
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.ReseiveClientControl.#ctor(NetManager.Client.NMClient)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="client">Управляемый клиент</param>
+        </member>
+        <member name="E:NetManager.Client.ReseiveClientControl.ReseiveData">
+            <summary>
+            Обработчик события полученных данных
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.ReseiveClientControl.#ctor">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ReseiveClientControl.ClientError">
+            <summary>
+            Событие, вызываемое когда возникает ошибка в работе клиента
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ReseiveClientControl.Started">
+            <summary>
+            Событие, вызываемое когда клиент запущен
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ReseiveClientControl.Stopped">
+            <summary>
+            Событие, вызываемое когда клиент остановлен
+            </summary>
+        </member>
+        <member name="F:NetManager.Client.ReseiveClientControl.m_Client">
+            <summary>
+            Клиент
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.ReseiveClientControl.Client">
+            <summary>
+            Клиент
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ReseiveClientControl.ClientChanged">
+            <summary>
+            Событие, вызываемое когда свойство Client изменилось
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ReseiveClientControl.IsSyncronizedChanged">
+            <summary>
+            Событие, вызываемое когда свойство IsSyncronized изменилось
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.ReseiveClientControl.IsSyncronized">
+            <summary>
+            Определяет, работает ли клиент в синхронном режиме
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ReseiveClientControl.IpServerChanged">
+            <summary>
+            Событие, вызываемое когда свойство IpServer изменилось
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.ReseiveClientControl.IPServer">
+            <summary>
+            IP сервера
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ReseiveClientControl.PortChanged">
+            <summary>
+            Событие, вызываемое когда свойство Port изменилось
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.ReseiveClientControl.Port">
+            <summary>
+            Номер порта сервера, к которому идет подключение
+            </summary>
+        </member>
+        <member name="E:NetManager.Client.ReseiveClientControl.ClientNameChanged">
+            <summary>
+            Событие, вызываемое когда свойство ClientName изменилось
+            </summary>
+        </member>
+        <member name="P:NetManager.Client.ReseiveClientControl.ClientName">
+            <summary>
+            Название клиента, которое увидят все клиенты
+            </summary>
+        </member>
+        <member name="F:NetManager.Client.ReseiveClientControl.components">
+            <summary> 
+            Обязательная переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:NetManager.Client.ReseiveClientControl.Dispose(System.Boolean)">
+            <summary> 
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:NetManager.Client.ReseiveClientControl.InitializeComponent">
+            <summary> 
+            Требуемый метод для поддержки конструктора — не изменяйте 
+            содержимое этого метода с помощью редактора кода.
+            </summary>
+        </member>
+        <member name="T:NetManager.ClientAddress">
+            <summary>
+            Класс содержащий адрес и имя клиента
+            </summary>
+        </member>
+        <member name="P:NetManager.ClientAddress.Id">
+            <summary>
+            Адрес клиента
+            </summary>
+        </member>
+        <member name="P:NetManager.ClientAddress.Name">
+            <summary>
+            Имя клиента
+            </summary>
+        </member>
+        <member name="M:NetManager.ClientAddress.#ctor(System.Int32,System.String)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="id">Адрес клиента</param>
+            <param name="name">Имя клиента</param>
+        </member>
+        <member name="M:NetManager.ClientAddress.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:NetManager.EventClientArgs">
+            <summary>
+            Аргументы события от клиента
+            </summary>
+        </member>
+        <member name="P:NetManager.EventClientArgs.ClientId">
+            <summary>
+            Id клиента
+            </summary>
+        </member>
+        <member name="P:NetManager.EventClientArgs.Name">
+            <summary>
+            Имя клиента
+            </summary>
+        </member>
+        <member name="M:NetManager.EventClientArgs.#ctor(System.Int32,System.String)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="id">Id клиента</param>
+            <param name="name">имя клиента</param>
+        </member>
+        <member name="T:NetManager.EventClientMsgArgs">
+            <summary>
+            Аргументы события получения данных от клиента
+            </summary>
+        </member>
+        <member name="P:NetManager.EventClientMsgArgs.Msg">
+            <summary>
+            Данные от клиента
+            </summary>
+        </member>
+        <member name="M:NetManager.EventClientMsgArgs.#ctor(System.Int32,System.String,System.Byte[])">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="id">Id клиента</param>
+            <param name="name">Название клиента</param>
+            <param name="data">Данные от клиента</param>
+        </member>
+        <member name="T:NetManager.EventMsgArgs">
+            <summary>
+            Аргументы события передачи текстового сообщения
+            </summary>
+        </member>
+        <member name="P:NetManager.EventMsgArgs.Msg">
+            <summary>
+            Сообщение
+            </summary>
+        </member>
+        <member name="M:NetManager.EventMsgArgs.#ctor(System.String)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="message">Сообщение</param>
+        </member>
+        <member name="T:NetManager.Server.ClientSocket">
+            <summary>
+            Класс, в котором реализована синхронная передача данных клиенту
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.ClientSocket.lastId">
+            <summary>
+            Для генерации Id
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.ClientSocket.Socket">
+            <summary>
+            Сокет для подключения
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.ClientSocket.m_SWrite">
+            <summary>
+            Семафор для синхронизации отправки данных клиенту
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.ClientSocket.Send(System.Byte[])">
+            <summary>
+            Отправка данных клиенту
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:NetManager.Server.ClientSocket.#ctor(System.String,System.Net.Sockets.TcpClient)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="name">Название клиента</param>
+            <param name="socket">Узел связи</param>
+        </member>
+        <member name="T:NetManager.Server.NMServer">
+            <summary>
+            класс сервер
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.NMServer.Owner">
+            <summary>
+            используется для синхронизации потоков при передаче событий. если null, то синхронизация не происходит
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.NMServer.m_Port">
+            <summary>
+            номер порта
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.NMServer.IsRunning">
+            <summary>
+            true - запущено
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.NMServer.Port">
+            <summary>
+            номер порта
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.NMServer.PortChanged">
+            <summary>
+            Событие, возникающее когда порт был изменен
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.#ctor(System.Windows.Forms.Control)">
+            <summary>
+            конструктор создающий объект класса NMServer
+            </summary>
+            <param name="owner">визуальная форма, с потоком которой нужно синхронизировать вывод событий</param>
+        </member>
+        <member name="M:NetManager.Server.NMServer.#ctor(System.Int32,System.Windows.Forms.Control)">
+            <summary>
+            конструктор создающий объект класса NMServer
+            </summary>
+            <param name="port">номер порта</param>
+            <param name="owner">визуальная форма, с потоком которой нужно синхронизировать вывод событий</param>
+        </member>
+        <member name="M:NetManager.Server.NMServer.Finalize">
+            <summary>
+            деструктор, чтобы остановить потоки, если они были запущены
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.NMServer.m_Clients">
+            <summary>
+            список клиентов
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.NMServer.Clients">
+            <summary>
+            список клиентов
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.NMServer.Error">
+            <summary>
+            обработка ошибок
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.ErrorEvent(System.String)">
+            <summary>
+            вывод события обработки ошибок
+            </summary>
+            <param name="msg">сообщение ошибки</param>
+        </member>
+        <member name="M:NetManager.Server.NMServer.Write(System.Int32,System.Byte[])">
+            <summary>
+            отправляет данные клиенту по указанному адресу
+            </summary>
+            <param name="Address">адрес</param>
+            <param name="data">данные</param>
+        </member>
+        <member name="F:NetManager.Server.NMServer.m_LiveTime">
+            <summary>
+            время, по истечении которого идет проверка - жив ли клиент
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.NMServer.LiveTime">
+            <summary>
+            время, по истечении которого идет проверка - жив ли клиент
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.NMServer.LiveTimeChanged">
+            <summary>
+            Событие, возникающе когда LiveTime изменено
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.TestLive">
+            <summary>
+            проверка, жив ли клиент
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.NMServer.m_Restarting">
+            <summary>
+            true - сервер перезагружается
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.Restart">
+            <summary>
+            перезагрузка сервера
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.NMServer.m_ThreadRestart">
+            <summary>
+            Перезапуск сервера
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.Read(System.Net.Sockets.NetworkStream,System.Int32)">
+            <summary>
+            Чтение данных из сетевого потока
+            </summary>
+            <param name="ns">Сетевой поток откуда происходит чтение</param>
+            <param name="size">Число байт, которое нужно прочтать</param>
+            <returns></returns>
+        </member>
+        <member name="M:NetManager.Server.NMServer.RunClient(NetManager.Server.ClientSocket)">
+            <summary>
+            Работа клиента
+            </summary>
+            <param name="client">текущий клиент</param>
+        </member>
+        <member name="F:NetManager.Server.NMServer.m_SClientEdit">
+            <summary>
+            семафор для синхронизации вставки и удаления клиентов
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.AddClientEvent(System.Int32,System.String)">
+            <summary>
+            вызов события добавления нового клиента
+            </summary>
+            <param name="Id">номер клиента</param>
+            <param name="Name">имя клиента</param>
+        </member>
+        <member name="E:NetManager.Server.NMServer.ClientAdded">
+            <summary>
+            событие добавления нового клиента
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.CopyBytes(System.Byte[],System.Byte[],System.Int32@)">
+            <summary>
+            копирование данных
+            </summary>
+            <param name="source">откуда копируется</param>
+            <param name="destination">куда копируется</param>
+            <param name="index">номер последней свободной ячейки</param>
+        </member>
+        <member name="M:NetManager.Server.NMServer.AddClient(NetManager.Server.ClientSocket)">
+            <summary>
+            добавляет новый клиент
+            </summary>
+            <param name="client">новый клиент</param>
+        </member>
+        <member name="E:NetManager.Server.NMServer.ClientDeleted">
+            <summary>
+            событие удаления клиента
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.DeleteClientEvent(System.Int32,System.String)">
+            <summary>
+            удаление клиента
+            </summary>
+            <param name="id">номер клиента</param>
+            <param name="name">название клиента</param>
+        </member>
+        <member name="M:NetManager.Server.NMServer.DeleteClient(NetManager.Server.ClientSocket)">
+            <summary>
+            удаление клиента
+            </summary>
+            <param name="client">клиент</param>
+        </member>
+        <member name="M:NetManager.Server.NMServer.NewClient(System.Net.Sockets.TcpClient)">
+            <summary>
+            добавляет нового клиента
+            </summary>
+            <param name="client">новый клиент</param>
+        </member>
+        <member name="E:NetManager.Server.NMServer.Stopped">
+            <summary>
+            событие остановки клиента
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.NMServer.Restarted">
+            <summary>
+            событие перезапуска клиента
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.StopEvent">
+            <summary>
+            вызов события остановки клиента
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.StopListener">
+            <summary>
+            остановка сервера
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.NMServer.m_Listener">
+            <summary>
+            сервер
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.RunServer">
+            <summary>
+            работа сервера
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.NMServer.ThreadRunServer">
+            <summary>
+            Поток для запуска серверного процесса
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.NMServer.ThreadTestLive">
+            <summary>
+            Поток для проверки активности клиентов
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.StartServer">
+            <summary>
+            запуск работы сервера
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.NMServer.Started">
+            <summary>
+            Событие, вызываемое когда сервер запущен
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.NMServer.SaveState(System.Xml.XmlElement)">
+            <summary>
+            Сохраняются настройки компонента
+            </summary>
+            <param name="node">Узел с настройками</param>
+        </member>
+        <member name="M:NetManager.Server.NMServer.LoadState(System.Xml.XmlElement)">
+            <summary>
+            Загружаются настройки компонента
+            </summary>
+            <param name="node">Узел с настройками</param>
+        </member>
+        <member name="M:NetManager.Server.NMServer.StopServer">
+            <summary>
+            остановка сервера
+            </summary>
+        </member>
+        <member name="T:NetManager.Server.ServerControl">
+            <summary>
+            Пользовательский элемент управления для сервера
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.ServerControl.Server">
+            <summary>
+            Сервер
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.ServerControl.ServerError">
+            <summary>
+            Вызывается, при возниконвении ошибок в сервере
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.ServerControl.ServerChanged">
+            <summary>
+            Событие, вызываемое когда свойство Server изменилось
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.ServerControl.#ctor(NetManager.Server.NMServer)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="server">Управляемый сервер</param>
+        </member>
+        <member name="M:NetManager.Server.ServerControl.#ctor">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.ServerControl.Started">
+            <summary>
+            Событие, вызываемое когда сервер запущен
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.ServerControl.Stopped">
+            <summary>
+            Событие, вызываемое когда сервер остановлен
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.ServerControl.PortChanged">
+            <summary>
+            Событие, вызываемое когда свойство Port изменилось
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.ServerControl.Port">
+            <summary>
+            Номер порта
+            </summary>
+        </member>
+        <member name="E:NetManager.Server.ServerControl.LiveTimeChanged">
+            <summary>
+            Событие, вызываемое когда свойство LiveTime изменилось
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.ServerControl.LiveTime">
+            <summary>
+            Время, по истечении которого идет проверка, жив ли клиент.
+            0 - проверки не будет
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.ServerControl.components">
+            <summary> 
+            Обязательная переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.ServerControl.Dispose(System.Boolean)">
+            <summary> 
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:NetManager.Server.ServerControl.InitializeComponent">
+            <summary> 
+            Требуемый метод для поддержки конструктора — не изменяйте 
+            содержимое этого метода с помощью редактора кода.
+            </summary>
+        </member>
+        <member name="T:NetManager.Server.ServerDaemon">
+            <summary>
+            Элемент управления сервером (в принципе, в нем есть все, что нужно для сервера)
+            </summary>
+        </member>
+        <member name="P:NetManager.Server.ServerDaemon.IPAddressList">
+            <summary>
+            Список адресов машины, где запущен сервер (для справки)
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.ServerDaemon.#ctor">
+            <summary>
+            Конструктор
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.ServerDaemon.#ctor(NetManager.Server.NMServer)">
+            <summary>
+            Конструктор
+            </summary>
+            <param name="server">Управляемый сервер</param>
+        </member>
+        <member name="P:NetManager.Server.ServerDaemon.Server">
+            <summary>
+            Сервер
+            </summary>
+        </member>
+        <member name="F:NetManager.Server.ServerDaemon.components">
+            <summary> 
+            Обязательная переменная конструктора.
+            </summary>
+        </member>
+        <member name="M:NetManager.Server.ServerDaemon.Dispose(System.Boolean)">
+            <summary> 
+            Освободить все используемые ресурсы.
+            </summary>
+            <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        </member>
+        <member name="M:NetManager.Server.ServerDaemon.InitializeComponent">
+            <summary> 
+            Требуемый метод для поддержки конструктора — не изменяйте 
+            содержимое этого метода с помощью редактора кода.
+            </summary>
+        </member>
+    </members>
+</doc>
