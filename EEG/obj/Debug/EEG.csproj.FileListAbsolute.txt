@@ -57,3 +57,24 @@ C:\Users\balagnese\Desktop\работа с мицар\aaa не работает 
 C:\Users\balagnese\Desktop\aaa не работает потоки в mitsarsmartbcicontrol — копия\aaa\EEG\EEG\obj\Debug\EEG.MitsarSmartBCI.MitsarSmartBCIDataControl.resources
 C:\Users\balagnese\Desktop\aaa не работает потоки в mitsarsmartbcicontrol — копия\aaa\EEG\EEG\obj\Debug\EEG.MitsarSmartBCI.MitsarSmartBCIBataryControl.resources
 C:\Users\balagnese\Desktop\aaa не работает потоки в mitsarsmartbcicontrol — копия\aaa\EEG\EEG\obj\Debug\EEG.MitsarSmartBCI.MitsarSmartBCIChanelsState.resources
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\EEG.exe.config
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\EEG.exe
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\EEG.pdb
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\FoundationLibrary.dll
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\FTD2XX_NET.dll
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\Mitsar.Essentials.dll
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\Mitsar.HAL.dll
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\NetManager.dll
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\FTD2XX_NET.xml
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\bin\Debug\NetManager.xml
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.csprojAssemblyReference.cache
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.Form1.resources
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.MitsarSmartBCI.MitsarSmartBCIBataryControl.resources
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.MitsarSmartBCI.MitsarSmartBCIChanelsState.resources
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.MitsarSmartBCI.MitsarSmartBCIDataControl.resources
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.Properties.Resources.resources
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.csproj.GenerateResource.cache
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.csproj.CoreCompileInputs.cache
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.csproj.CopyComplete
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.exe
+C:\Users\balagnese\Desktop\Mitsar-master 2\EEG\EEG\obj\Debug\EEG.pdb

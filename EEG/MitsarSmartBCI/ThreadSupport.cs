@@ -17,6 +17,10 @@ namespace EEG.MitsarSmartBCI
     /// </summary>
     class ThreadSupport
     {
+        public const uint _AttrMask = 0xFC000000;
+        public const uint _UIDMask = 0x03FF0000;
+        public const uint _RMask = 0x00007FFF;
+
         /// <summary>
         /// Target input device
         /// </summary>
@@ -140,12 +144,43 @@ namespace EEG.MitsarSmartBCI
                             {
                                 //Сырые данные полученные с прибора в единицах АЦП.
                                 int value = Resource.DataBuffer.DataOut[i * ChannelCount + HardwareIndex];
-                                //Преобразуем значение в единицах АЦП в значение в микровольтах умножая на коэффициент квантования.
-                                float fValue = value * em.UnitsPerSample;
-                                int fValueInt = (int)fValue;
-                                //Преобразовываем в думерный массив
                                 
-                                data[em.HardwareIndex, i] = fValueInt;
+                                if (em.UID == UID.AD0)
+                                {
+                                    if (value > 0)
+                                    {
+                                        UID LogicalUID = (UID)((value & _UIDMask) >> 16);
+                                        double Rvalue = (double)(value & _RMask) / 10.0;
+                                        //Attributes
+                                        bool Active = ((value & (uint)ImpedanceElementAttributes.Active) > 0) ? true : false;
+                                        bool HardwareReferent = ((value & (uint)ImpedanceElementAttributes.Referent) > 0) ? true : false;
+                                        Console.WriteLine(em.UID.ToString() + " UID " + LogicalUID.ToString() + " Rvalue " + Rvalue +
+                                            " Active " + Active + " HardwareReferent " + HardwareReferent);
+                                    }
+                                }
+                                else if (em.UID == UID.AD1)
+                                {
+                                    if (value > 0)
+                                    {
+                                        /* UID.AD1 - Канал акселерометра.Значения датчиков положения тела. byte XAxis; byte YAxis; 
+                                            byte ZAxis;byte Reserved;  */
+                                        byte[] ad1bytes = BitConverter.GetBytes(value);
+                                        int x = ad1bytes[0];
+                                        int y = ad1bytes[1];
+                                        int z = ad1bytes[2];
+                                         
+                                        Console.WriteLine(em.UID.ToString() + " x " + x + " y " + y + " z " + z);
+                                    }
+                                }
+                                else
+                                {
+                                    //Преобразуем значение в единицах АЦП в значение в микровольтах умножая на коэффициент квантования.
+                                    float fValue = value * em.UnitsPerSample;
+                                    int fValueInt = (int)fValue;
+                                    //Преобразовываем в думерный массив
+
+                                    data[em.HardwareIndex, i] = fValueInt;
+                                }
                             }
                             time_on_bus += TicksReceived;
                         }

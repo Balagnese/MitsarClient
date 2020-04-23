@@ -19,8 +19,11 @@ namespace EEG.MitsarSmartBCI
             new ViewChannel("17. P4", Color.FromArgb(255, 0, 0)), new ViewChannel("18. C4", Color.FromArgb(0, 0, 255)),
             new ViewChannel("19. F4",Color.FromArgb(0, 0, 128)), new ViewChannel("20. F8", Color.FromArgb(0, 128, 0)),
             new ViewChannel("21. T4", Color.FromArgb(128, 0, 0)), new ViewChannel("22. T6", Color.FromArgb(128, 192, 0)),
-            new ViewChannel("23. BIO1", Color.FromArgb(128, 0, 192)), new ViewChannel("24. AD0", Color.FromArgb(192, 128, 0)),
-            new ViewChannel("25. AD1", Color.FromArgb(192, 0, 128)), new ViewChannel("26. EVENT", Color.FromArgb(0, 192, 128)) };
+            new ViewChannel("23. BIO1", Color.FromArgb(128, 0, 192)), new ViewChannel("26. EVENT", Color.FromArgb(0, 192, 128)) };
+        
+        //new ViewChannel("24. AD0", Color.FromArgb(192, 128, 0)),
+        //new ViewChannel("25. AD1", Color.FromArgb(192, 0, 128)),
+
 
         /// <summary>
         /// Конструктор

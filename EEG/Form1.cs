@@ -16,30 +16,31 @@ namespace EEG
     public partial class Form1 : Form
     {
         MitsarSmartBCI.MitsarSmartBCI mitsar = null;
-        MitsarSmartBCIDataControl datacontrol = null;
+        //MitsarSmartBCIDataControl datacontrol = null;
         MitsarSmartBCIViewControl viewControl = null;
-        MitsarSmartBCIBataryControl batarycontrol = null;
-        MitsarSmartBCIChanelsState chanelscontrol = null;
+        //MitsarSmartBCIBataryControl batarycontrol = null;
+        //MitsarSmartBCIChanelsState chanelscontrol = null;
         Thread t;
         public Form1()
         {
             InitializeComponent();
             mitsar = new MitsarSmartBCI.MitsarSmartBCI();
-            chanelscontrol = new MitsarSmartBCIChanelsState();
-            chanelscontrol.EEG = mitsar;
-            Controls.Add(chanelscontrol);
-            datacontrol = new MitsarSmartBCIDataControl();
-            batarycontrol = new MitsarSmartBCIBataryControl();
+            //chanelscontrol = new MitsarSmartBCIChanelsState();
+            //chanelscontrol.EEG = mitsar;
+            //Controls.Add(chanelscontrol);
+            //datacontrol = new MitsarSmartBCIDataControl();
+            //batarycontrol = new MitsarSmartBCIBataryControl();
             viewControl = new MitsarSmartBCIViewControl();
-            Controls.Add(datacontrol);
-            Controls.Add(batarycontrol);
+            //Controls.Add(datacontrol);
+            //Controls.Add(batarycontrol);
             Controls.Add(viewControl);
-            datacontrol.EEG = mitsar;
-            batarycontrol.EEG = mitsar;
+            //datacontrol.EEG = mitsar;
+            //batarycontrol.EEG = mitsar;
             viewControl.EEG = mitsar;
-            datacontrol.Location = new Point(0, 40);
-            chanelscontrol.Location = new Point(150, 0);
-            viewControl.Location = new Point(430, 0);
+            //datacontrol.Location = new Point(0, 40);
+            //chanelscontrol.Location = new Point(150, 0);
+            //viewControl.Location = new Point(430, 0);
+            viewControl.Dock = DockStyle.Fill;
             start();
         }
 
